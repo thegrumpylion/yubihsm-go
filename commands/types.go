@@ -4,6 +4,9 @@ type (
 	CommandType uint8
 	ErrorCode   uint8
 	Algorithm   uint8
+	Capability  uint64
+	Domain      uint16
+	ObjectType  uint8
 )
 
 const (
@@ -133,82 +136,82 @@ const (
 	AlgorithmECP224                  Algorithm = 47
 
 	// Capabilities
-	CapabilityNone                    uint64 = 0x0000000000000000
-	CapabilityGetOpaque               uint64 = 0x0000000000000001
-	CapabilityPutOpaque               uint64 = 0x0000000000000002
-	CapabilityPutAuthenticationKey    uint64 = 0x0000000000000004
-	CapabilityPutAsymmetric           uint64 = 0x0000000000000008
-	CapabilityAsymmetricGen           uint64 = 0x0000000000000010
-	CapabilityAsymmetricSignPkcs      uint64 = 0x0000000000000020
-	CapabilityAsymmetricSignPss       uint64 = 0x0000000000000040
-	CapabilityAsymmetricSignEcdsa     uint64 = 0x0000000000000080
-	CapabilityAsymmetricSignEddsa     uint64 = 0x0000000000000100
-	CapabilityAsymmetricDecryptPkcs   uint64 = 0x0000000000000200
-	CapabilityAsymmetricDecryptOaep   uint64 = 0x0000000000000400
-	CapabilityAsymmetricDecryptEcdh   uint64 = 0x0000000000000800 // here for backwards compatibility
-	CapabilityAsymmetricDeriveEcdh    uint64 = 0x0000000000000800
-	CapabilityExportWrapped           uint64 = 0x0000000000001000
-	CapabilityImportWrapped           uint64 = 0x0000000000002000
-	CapabilityPutWrapKey              uint64 = 0x0000000000004000
-	CapabilityGenerateWrapKey         uint64 = 0x0000000000008000
-	CapabilityExportableUnderWrap     uint64 = 0x0000000000010000
-	CapabilityPutOption               uint64 = 0x0000000000020000
-	CapabilityGetOption               uint64 = 0x0000000000040000
-	CapabilityGetRandomness           uint64 = 0x0000000000080000
-	CapabilityPutHmacKey              uint64 = 0x0000000000100000
-	CapabilityHmacKeyGenerate         uint64 = 0x0000000000200000
-	CapabilityHmacData                uint64 = 0x0000000000400000
-	CapabilityHmacVerify              uint64 = 0x0000000000800000
-	CapabilityAudit                   uint64 = 0x0000000001000000
-	CapabilitySshCertify              uint64 = 0x0000000002000000
-	CapabilityGetTemplate             uint64 = 0x0000000004000000
-	CapabilityPutTemplate             uint64 = 0x0000000008000000
-	CapabilityReset                   uint64 = 0x0000000010000000
-	CapabilityOtpDecrypt              uint64 = 0x0000000020000000
-	CapabilityOtpAeadCreate           uint64 = 0x0000000040000000
-	CapabilityOtpAeadRandom           uint64 = 0x0000000080000000
-	CapabilityOtpAeadRewrapFrom       uint64 = 0x0000000100000000
-	CapabilityOtpAeadRewrapTo         uint64 = 0x0000000200000000
-	CapabilityAttest                  uint64 = 0x0000000400000000
-	CapabilityPutOtpAeadKey           uint64 = 0x0000000800000000
-	CapabilityGenerateOtpAeadKey      uint64 = 0x0000001000000000
-	CapabilityWrapData                uint64 = 0x0000002000000000
-	CapabilityUnwrapData              uint64 = 0x0000004000000000
-	CapabilityDeleteOpaque            uint64 = 0x0000008000000000
-	CapabilityDeleteAuthKey           uint64 = 0x0000010000000000
-	CapabilityDeleteAsymmetric        uint64 = 0x0000020000000000
-	CapabilityDeleteWrapKey           uint64 = 0x0000040000000000
-	CapabilityDeleteHmacKey           uint64 = 0x0000080000000000
-	CapabilityDeleteTemplate          uint64 = 0x0000100000000000
-	CapabilityDeleteOtpAeadKey        uint64 = 0x0000200000000000
-	CapabilityChangeAuthenticationKey uint64 = 0x0000400000000000
+	CapabilityNone                    Capability = 0x0000000000000000
+	CapabilityGetOpaque               Capability = 0x0000000000000001
+	CapabilityPutOpaque               Capability = 0x0000000000000002
+	CapabilityPutAuthenticationKey    Capability = 0x0000000000000004
+	CapabilityPutAsymmetric           Capability = 0x0000000000000008
+	CapabilityAsymmetricGen           Capability = 0x0000000000000010
+	CapabilityAsymmetricSignPkcs      Capability = 0x0000000000000020
+	CapabilityAsymmetricSignPss       Capability = 0x0000000000000040
+	CapabilityAsymmetricSignEcdsa     Capability = 0x0000000000000080
+	CapabilityAsymmetricSignEddsa     Capability = 0x0000000000000100
+	CapabilityAsymmetricDecryptPkcs   Capability = 0x0000000000000200
+	CapabilityAsymmetricDecryptOaep   Capability = 0x0000000000000400
+	CapabilityAsymmetricDecryptEcdh   Capability = 0x0000000000000800 // here for backwards compatibility
+	CapabilityAsymmetricDeriveEcdh    Capability = 0x0000000000000800
+	CapabilityExportWrapped           Capability = 0x0000000000001000
+	CapabilityImportWrapped           Capability = 0x0000000000002000
+	CapabilityPutWrapKey              Capability = 0x0000000000004000
+	CapabilityGenerateWrapKey         Capability = 0x0000000000008000
+	CapabilityExportableUnderWrap     Capability = 0x0000000000010000
+	CapabilityPutOption               Capability = 0x0000000000020000
+	CapabilityGetOption               Capability = 0x0000000000040000
+	CapabilityGetRandomness           Capability = 0x0000000000080000
+	CapabilityPutHmacKey              Capability = 0x0000000000100000
+	CapabilityHmacKeyGenerate         Capability = 0x0000000000200000
+	CapabilityHmacData                Capability = 0x0000000000400000
+	CapabilityHmacVerify              Capability = 0x0000000000800000
+	CapabilityAudit                   Capability = 0x0000000001000000
+	CapabilitySshCertify              Capability = 0x0000000002000000
+	CapabilityGetTemplate             Capability = 0x0000000004000000
+	CapabilityPutTemplate             Capability = 0x0000000008000000
+	CapabilityReset                   Capability = 0x0000000010000000
+	CapabilityOtpDecrypt              Capability = 0x0000000020000000
+	CapabilityOtpAeadCreate           Capability = 0x0000000040000000
+	CapabilityOtpAeadRandom           Capability = 0x0000000080000000
+	CapabilityOtpAeadRewrapFrom       Capability = 0x0000000100000000
+	CapabilityOtpAeadRewrapTo         Capability = 0x0000000200000000
+	CapabilityAttest                  Capability = 0x0000000400000000
+	CapabilityPutOtpAeadKey           Capability = 0x0000000800000000
+	CapabilityGenerateOtpAeadKey      Capability = 0x0000001000000000
+	CapabilityWrapData                Capability = 0x0000002000000000
+	CapabilityUnwrapData              Capability = 0x0000004000000000
+	CapabilityDeleteOpaque            Capability = 0x0000008000000000
+	CapabilityDeleteAuthKey           Capability = 0x0000010000000000
+	CapabilityDeleteAsymmetric        Capability = 0x0000020000000000
+	CapabilityDeleteWrapKey           Capability = 0x0000040000000000
+	CapabilityDeleteHmacKey           Capability = 0x0000080000000000
+	CapabilityDeleteTemplate          Capability = 0x0000100000000000
+	CapabilityDeleteOtpAeadKey        Capability = 0x0000200000000000
+	CapabilityChangeAuthenticationKey Capability = 0x0000400000000000
 
 	// Domains
-	Domain1  uint16 = 0x0001
-	Domain2  uint16 = 0x0002
-	Domain3  uint16 = 0x0004
-	Domain4  uint16 = 0x0008
-	Domain5  uint16 = 0x0010
-	Domain6  uint16 = 0x0020
-	Domain7  uint16 = 0x0040
-	Domain8  uint16 = 0x0080
-	Domain9  uint16 = 0x0100
-	Domain10 uint16 = 0x0200
-	Domain11 uint16 = 0x0400
-	Domain12 uint16 = 0x0800
-	Domain13 uint16 = 0x1000
-	Domain14 uint16 = 0x2000
-	Domain15 uint16 = 0x4000
-	Domain16 uint16 = 0x8000
+	Domain1  Domain = 0x0001
+	Domain2  Domain = 0x0002
+	Domain3  Domain = 0x0004
+	Domain4  Domain = 0x0008
+	Domain5  Domain = 0x0010
+	Domain6  Domain = 0x0020
+	Domain7  Domain = 0x0040
+	Domain8  Domain = 0x0080
+	Domain9  Domain = 0x0100
+	Domain10 Domain = 0x0200
+	Domain11 Domain = 0x0400
+	Domain12 Domain = 0x0800
+	Domain13 Domain = 0x1000
+	Domain14 Domain = 0x2000
+	Domain15 Domain = 0x4000
+	Domain16 Domain = 0x8000
 
 	// object types
-	ObjectTypeOpaque            uint8 = 0x01
-	ObjectTypeAuthenticationKey uint8 = 0x02
-	ObjectTypeAsymmetricKey     uint8 = 0x03
-	ObjectTypeWrapKey           uint8 = 0x04
-	ObjectTypeHmacKey           uint8 = 0x05
-	ObjectTypeTemplate          uint8 = 0x06
-	ObjectTypeOtpAeadKey        uint8 = 0x07
+	ObjectTypeOpaque            ObjectType = 0x01
+	ObjectTypeAuthenticationKey ObjectType = 0x02
+	ObjectTypeAsymmetricKey     ObjectType = 0x03
+	ObjectTypeWrapKey           ObjectType = 0x04
+	ObjectTypeHmacKey           ObjectType = 0x05
+	ObjectTypeTemplate          ObjectType = 0x06
+	ObjectTypeOtpAeadKey        ObjectType = 0x07
 
 	// list objects params
 	ListObjectParamID           uint8 = 0x01
